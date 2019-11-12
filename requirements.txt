@@ -1,0 +1,2 @@
+inotify_simple
+prometheus_client
