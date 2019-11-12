@@ -10,8 +10,8 @@ def main():
     birdc_ip4_config = f'{bird_config_folder}/bird.conf'
     birdc_ip6_config = f'{bird_config_folder}/bird6.conf'
 
-    birdc_ip4_socket_path = '/var/bla'
-    birdc_ip6_socket_path = '/var/bla'
+    birdc_ip4_socket_path = '/var/run/bird/bird.ctl '
+    birdc_ip6_socket_path = '/var/run/bird/bird6.ctl '
 
     bird4_prometheus = Enum('bird4_config_state', 'Bird IPv4 Config State', states=['valid', 'invalid'])
     bird6_prometheus = Enum('bird6_config_state', 'Bird IPv6 Config State', states=['valid', 'invalid'])
