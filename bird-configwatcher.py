@@ -10,17 +10,17 @@ def main():
     birdc_ip4_config = f'{bird_config_folder}/bird.conf'
     birdc_ip6_config = f'{bird_config_folder}/bird6.conf'
 
-    birdc_ip4_socket_path = '/var/bla';
-    birdc_ip6_socket_path = '/var/bla';
+    birdc_ip4_socket_path = '/var/bla'
+    birdc_ip6_socket_path = '/var/bla'
 
     bird4_prometheus = Enum('bird4_config_state', 'Bird IPv4 Config State', states=['valid', 'invalid'])
     bird6_prometheus = Enum('bird6_config_state', 'Bird IPv6 Config State', states=['valid', 'invalid'])
 
-    birdc_ip4 = bird_control.BirdControl(birdc_ip4_socket_path);
-    birdc_ip6 = bird_control.BirdControl(birdc_ip6_socket_path);
+    birdc_ip4 = bird_control.BirdControl(birdc_ip4_socket_path)
+    birdc_ip6 = bird_control.BirdControl(birdc_ip6_socket_path)
     inotify = INotify()
     watch_flags = flags.CREATE | flags.MODIFY
-    wd = inotify.add_watch(bird_config_folder, watch_flags)
+    inotify.add_watch(bird_config_folder, watch_flags)
 
     for event in inotify.read():
         full_path_event = f'{bird_config_folder}/{event.name}'
