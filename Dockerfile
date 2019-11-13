@@ -3,5 +3,4 @@ RUN addgroup -S app && adduser -S app -G app
 COPY --chown=app:app . /app
 WORKDIR /app
 RUN pip3 install -r requirements.txt
-# CMD python ./bird-configwatcher.py
-CMD tail -f /dev/null
+CMD python ./bird-configwatcher.py
