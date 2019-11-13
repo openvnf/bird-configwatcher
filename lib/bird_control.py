@@ -6,7 +6,7 @@ class BirdControl:
 
     def read_lines(self, count, sock):
         data = b''
-        while not data.count('\n') == count:
+        while not data.count(b'\n') == count:
             data += sock.recv(1024)
         return data
 
