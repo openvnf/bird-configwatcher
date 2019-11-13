@@ -38,6 +38,7 @@ def main():
     print(f'watching config directory {bird_config_folder}')
     while True:
         for event in inotify.read():
+            print(40*'-')
             print('got inotify event, checking what has changed')
             new_bird_ip4_config_hash = sha256sum(birdc_ip4_config)
             new_bird_ip6_config_hash = sha256sum(birdc_ip6_config)
@@ -53,6 +54,9 @@ def main():
                 else :
                     bird4_prometheus.state('invalid')
                     print('BAD IPv4 Config')
+            else:
+                print('NO IPv4 config change')
+
             if new_bird_ip6_config_hash != bird_ip6_config_hash:
                 print('IPv6 config change')
                 bird_ip6_config_hash = new_bird_ip6_config_hash
@@ -64,5 +68,7 @@ def main():
                 else :
                     bird6_prometheus.state('invalid')
                     print('BAD IPv6 Config')
-
+            else:
+                print('NO IPv6 config change')
+            print(40*'-')
 main()

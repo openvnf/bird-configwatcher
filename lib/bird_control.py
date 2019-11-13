@@ -14,10 +14,10 @@ class BirdControl:
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         sock.connect(self.path)
         message = bytes(f'configure check "{config_path}" \n','utf-8')
-        print(f'send message: {message}')
+        print(f'  <- send message:\n  {message}\n')
         sock.send(message)
         reply = self.read_lines(3, sock)
-        print(f'get reply: {reply}')
+        print(f'  -> get reply:\n  {reply}\n')
         sock.close()
         sock = None
         return b'Configuration OK' in reply
@@ -26,10 +26,10 @@ class BirdControl:
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         sock.connect(self.path)
         message = bytes(f'configure "{config_path}" \n','utf-8')
-        print(f'send message: {message}')
+        print(f'  <- send message:\n {message}\n')
         sock.send(message)
         reply = self.read_lines(3, sock)
-        print(f'get reply: {reply}')
+        print(f'  -> get reply:\n {reply}\n')
         sock.close()
         return b'Reconfigured' in reply
 
