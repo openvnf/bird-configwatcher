@@ -1,17 +1,9 @@
 
 from lib import bird_control
+from lib import hashing
 from inotify_simple import INotify, flags
 from prometheus_client import start_http_server, Enum
-import hashlib
 
-def sha256sum(filename):
-    h  = hashlib.sha256()
-    b  = bytearray(128*1024)
-    mv = memoryview(b)
-    with open(filename, 'rb', buffering=0) as f:
-        for n in iter(lambda : f.readinto(mv), 0):
-            h.update(mv[:n])
-    return h.hexdigest()
 
 def main():
     print('Starting prometheus exporter')
@@ -29,8 +21,8 @@ def main():
     birdc_ip4 = bird_control.BirdControl(birdc_ip4_socket_path)
     birdc_ip6 = bird_control.BirdControl(birdc_ip6_socket_path)
 
-    bird_ip4_config_hash = sha256sum(birdc_ip4_config)
-    bird_ip6_config_hash = sha256sum(birdc_ip6_config)
+    bird_ip4_config_hash = hashing.sha256sum(birdc_ip4_config)
+    bird_ip6_config_hash = hashing.sha256sum(birdc_ip6_config)
 
     inotify = INotify()
     watch_flags = flags.CREATE | flags.MODIFY
@@ -40,8 +32,8 @@ def main():
         for event in inotify.read():
             print(40*'-')
             print('got inotify event, checking what has changed')
-            new_bird_ip4_config_hash = sha256sum(birdc_ip4_config)
-            new_bird_ip6_config_hash = sha256sum(birdc_ip6_config)
+            new_bird_ip4_config_hash = hashing.sha256sum(birdc_ip4_config)
+            new_bird_ip6_config_hash = hashing.sha256sum(birdc_ip6_config)
 
             if new_bird_ip4_config_hash != bird_ip4_config_hash:
                 print('IPv4 config change')
