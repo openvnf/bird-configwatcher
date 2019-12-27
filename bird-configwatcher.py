@@ -32,6 +32,7 @@ def main():
         for event in inotify.read():
             print(40*'-')
             print('got inotify event, checking what has changed')
+            print(event)
             new_bird_ip4_config_hash = hashing.sha256sum(birdc_ip4_config)
             new_bird_ip6_config_hash = hashing.sha256sum(birdc_ip6_config)
 
