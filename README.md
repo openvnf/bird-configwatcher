@@ -4,7 +4,7 @@
 The bird config files at `/opt/bird/bird.conf` and `/opt/bird/bird6.conf` will be observed for changes.
 When changes are detected, the new config will be validated and subsequently applied when the validation was successful.
 
-Prometheus metrics about the Python runtime and the config validity are exposed on port `8000`:
+Prometheus metrics about the Python runtime and the config validity are exposed on the port specified by the environment variable `METRICS_PORT` (default: `8000`):
 
 Full example of all metrics:
 
