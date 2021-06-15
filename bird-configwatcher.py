@@ -3,11 +3,12 @@ from lib import bird_control
 from lib import hashing
 from inotify_simple import INotify, flags
 from prometheus_client import start_http_server, Enum
+import os
 
 
 def main():
     print('Starting prometheus exporter')
-    start_http_server(8000)
+    start_http_server(int(os.getenv('METRICS_PORT', 8000)))
     bird_config_folder = '/opt/bird'
     birdc_ip4_config = f'{bird_config_folder}/bird.conf'
     birdc_ip6_config = f'{bird_config_folder}/bird6.conf'
