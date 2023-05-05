@@ -1,5 +1,5 @@
-FROM quay.io/bitnami/python:3.9-prod
-RUN addgroup --system app && adduser --system --group app
+FROM python:alpine3.17
+RUN addgroup --system app && adduser -S app -G app
 COPY --chown=app:app . /app
 WORKDIR /app
 RUN pip3 install -r requirements.txt
